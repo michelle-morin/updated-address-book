@@ -45,7 +45,6 @@ function Contact(firstName, lastName, phoneNumber, addresses) {
   this.addresses = addresses;
 }
 
-
 Contact.prototype.fullName = function() {
   return this.firstName + " " + this.lastName;
 }
@@ -76,9 +75,28 @@ function showContact(contactId) {
   $(".first-name").html(contact.firstName);
   $(".last-name").html(contact.lastName);
   $(".phone-number").html(contact.phoneNumber);
-  $(".email-address").html(contact.addresses.emailAddress);
-  $(".home-address").html(contact.addresses.homeAddress);
-  $(".work-address").html(contact.addresses.workAddress);
+
+  if (contact.addresses.workAddress) {
+    $("#work-address").show();
+    $(".work-address").html(contact.addresses.workAddress);
+  } else {
+    $("#work-address").hide();
+  }
+  if (contact.addresses.homeAddress) {
+    $("#home-address").show();
+    $(".home-address").html(contact.addresses.homeAddress).show();
+  } else {
+    $("#home-address").hide();
+  }
+  if (contact.addresses.emailAddress) {
+    $("#email").show();
+    $(".email-address").html(contact.addresses.emailAddress).show();
+  } else {
+    $("#email").hide();
+  }
+  // $(".email-address").html(contact.addresses.emailAddress);
+  // $(".home-address").html(contact.addresses.homeAddress);
+  // $(".work-address").html(contact.addresses.workAddress);
   var buttons = $("#buttons");
   buttons.empty();
   buttons.append("<button class='deleteButton' id=" +  + contact.id + ">Delete</button>");
