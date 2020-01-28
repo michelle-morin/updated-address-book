@@ -38,16 +38,25 @@ AddressBook.prototype.deleteContact = function(id) {
 }
 
 // Business Logic for Contacts
-function Contact(firstName, lastName, phoneNumber, email) {
+function Contact(firstName, lastName, phoneNumber, addresses) {
   this.firstName = firstName;
   this.lastName = lastName;
   this.phoneNumber = phoneNumber;
-  this.email = email;
+  this.addresses = addresses;
 }
+
 
 Contact.prototype.fullName = function() {
   return this.firstName + " " + this.lastName;
 }
+
+//Business Logic for Addresses
+function Address(workAddress, homeAddress, emailAddress) {
+  this.workAddress = workAddress;
+  this.homeAddress = homeAddress;
+  this.emailAddress = emailAddress;
+}
+
 
 // User Interface Logic:
 var addressBook = new AddressBook();
@@ -67,7 +76,9 @@ function showContact(contactId) {
   $(".first-name").html(contact.firstName);
   $(".last-name").html(contact.lastName);
   $(".phone-number").html(contact.phoneNumber);
-  $(".email-address").html(contact.email)
+  $(".email-address").html(contact.addresses.emailAddress);
+  $(".home-address").html(contact.addresses.homeAddress);
+  $(".work-address").html(contact.addresses.workAddress);
   var buttons = $("#buttons");
   buttons.empty();
   buttons.append("<button class='deleteButton' id=" +  + contact.id + ">Delete</button>");
@@ -92,13 +103,18 @@ $(document).ready(function() {
     var inputtedLastName = $("input#new-last-name").val();
     var inputtedPhoneNumber = $("input#new-phone-number").val();
     var inputtedEmail = $("input#new-email").val();
+    var inputtedHomeAddress = $("input#new-home-address").val();
+    var inputtedWorkAddress = $("input#new-work-address").val();
+    var inputtedAddresses = new Address(inputtedWorkAddress, inputtedHomeAddress, inputtedEmail);
 
     $("input#new-first-name").val("");
     $("input#new-last-name").val("");
     $("input#new-phone-number").val("");
     $("input#new-email").val("");
+    $("input#new-home-address").val("");
+    $("input#new-work-address").val("");
 
-    var newContact = new Contact(inputtedFirstName, inputtedLastName, inputtedPhoneNumber, inputtedEmail);
+    var newContact = new Contact(inputtedFirstName, inputtedLastName, inputtedPhoneNumber, inputtedAddresses);
     addressBook.addContact(newContact);
     displayContactDetails(addressBook);
   })
